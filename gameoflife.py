@@ -26,17 +26,17 @@ def get_neighbors(dish, x, y):
     neighbors = 0
     if x > 0 and y > 0 and dish[y-1][x-1] == 1:
             neighbors += 1
-    if y > 0 and dish[y-1][x+1] == 1:
+    if y > 0 and x < width - 1 and dish[y-1][x+1] == 1:
             neighbors += 1
     if x > 0 and dish[y][x-1] == 1:
             neighbors += 1
-    if dish[y][x+1] == 1:
+    if x < width - 1 and dish[y][x+1] == 1:
             neighbors += 1
-    if x > 0 and dish[y+1][x-1] == 1:
+    if x > 0 and y < height - 1 and dish[y+1][x-1] == 1:
             neighbors += 1
-    if dish[y+1][x] == 1:
+    if y < height - 1 and dish[y+1][x] == 1:
             neighbors += 1
-    if dish[y+1][x+1] == 1:
+    if y < height - 1 and x < width - 1 and dish[y+1][x+1] == 1:
             neighbors += 1
     if x > 0 and dish[y+1][x-1] == 1:
             neighbors += 1
