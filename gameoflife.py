@@ -42,6 +42,8 @@ def get_neighbors(dish, x, y):
             neighbors += 1
     print(neighbors)
 
+def copy_dishes(source, destination):
+        
 
 create_dishes(height, width)
-get_neighbors(dish1, 21, 2)
+get_neighbors(dish1, 0, 0)
