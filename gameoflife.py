@@ -42,7 +42,7 @@ def get_neighbors(dish, x, y):
             neighbors += 1
     print(neighbors)
 
-def copy_dishes(source, destination):
+#def copy_dishes(source, destination): kopirovat miskz medyi sebou kopirovanie sa musi striedat
         
 
 create_dishes(height, width)
