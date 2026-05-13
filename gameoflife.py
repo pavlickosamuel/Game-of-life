@@ -38,7 +38,7 @@ def get_neighbors(dish, x, y):
             neighbors += 1
     if y < height - 1 and x < width - 1 and dish[y+1][x+1] == 1:
             neighbors += 1
-    if x > 0 and dish[y+1][x-1] == 1:
+    if x > 0 and y < height - 1 and dish[y+1][x-1] == 1:
             neighbors += 1
     print(neighbors)
 
