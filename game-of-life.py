@@ -1,6 +1,6 @@
 import tkinter as tk
 
-fr = open("glider-gun.txt", "r")
+fr = open("pulsar.txt", "r")
 height = int(fr.readline().strip())
 width = int(fr.readline().strip())
 cell_size = 10
