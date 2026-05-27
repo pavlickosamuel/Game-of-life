@@ -1,9 +1,19 @@
+import tkinter as tk
+
+
 fr = open("glider-gun.txt", "r")
 height = int(fr.readline().strip())
 width = int(fr.readline().strip())
+cell_size = 10
+win = tk.Tk()
+win.title("Game of Life")
+canvas = tk.Canvas(win, width = width*cell_size, height = height*cell_size, bg = "white")
+canvas.pack()
+
 
 dish1 = []
 dish2 = []
+
 
 def create_dishes(height, width):
     global dish1, dish2
@@ -22,6 +32,7 @@ def create_dishes(height, width):
             x += 1
         y += 1
 
+
 def get_neighbors(dish, x, y):
     neighbors = 0
     if y > 0:
@@ -37,23 +48,28 @@ def get_neighbors(dish, x, y):
         if dish[y+1][x] == 1: neighbors += 1
         if x < width - 1 and dish[y+1][x+1] == 1: neighbors += 1
     
-    print(neighbors)
+    return neighbors
 
-state = True
-def copy_dishes(source, destination): #def copy_dishes(source, destination): kopirovat misky medzi sebou kopirovanie sa musi striedat
-        global state
-        if state == True:
-                for y in range(height):
-                        for x in range(width):
-                                destination[y][x] = source[y][x]
-                        state = False
-        else:
-                for y in range(height):
-                        for x in range(width):
-                                source[y][x] = destination[y][x]
-                        state = True
 
+def copy_dishes(source, destination): 
+    for y in range(height):
+        for x in range(width):
+            neighbours = get_neighbors(source, x, y)
+            if source[y][x] == 1:
+                if neighbours < 2:
+                    destination[y][x] = 0
+                if neighbours == 2 or neighbours == 3:
+                    destination[y][x] = 1
+                if neighbours > 3:
+                    destination[y][x] = 0
+            else:
+                if neighbours == 3:
+                    destination[y][x] = 1
 
 
 create_dishes(height, width)
-get_neighbors(dish1, 21, 1)
+copy_dishes(dish1, dish2)
+print(dish2)
+
+
+win.mainloop()
