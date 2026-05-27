@@ -67,9 +67,17 @@ def copy_dishes(source, destination):
                     destination[y][x] = 1
 
 
+def create_grid():
+    for i in range(0, width*cell_size, cell_size):
+        canvas.create_line(i, 0, i, height*cell_size, fill="lightgray")
+    for i in range(0, height*cell_size, cell_size):
+        canvas.create_line(0, i, width*cell_size, i, fill="lightgray")
+
+
 create_dishes(height, width)
 copy_dishes(dish1, dish2)
 print(dish2)
+create_grid()
 
 
 win.mainloop()
