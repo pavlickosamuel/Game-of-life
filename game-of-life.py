@@ -52,6 +52,8 @@ def copy_dishes(source, destination): #def copy_dishes(source, destination): kop
                         for x in range(width):
                                 source[y][x] = destination[y][x]
                         state = True
-        
+
+
+
 create_dishes(height, width)
 get_neighbors(dish1, 21, 1)
