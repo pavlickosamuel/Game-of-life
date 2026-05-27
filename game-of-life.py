@@ -74,10 +74,18 @@ def create_grid():
         canvas.create_line(0, i, width*cell_size, i, fill="lightgray")
 
 
+def paint_dish(dish):
+    for y in range(height):
+        for x in range(width):
+            if dish[y][x] == 1:
+                canvas.create_rectangle(x*cell_size, y*cell_size, (x+1)*cell_size, (y+1)*cell_size, fill="black")
+            else:
+                canvas.create_rectangle(x*cell_size, y*cell_size, (x+1)*cell_size, (y+1)*cell_size, fill="white")
+
+
 create_dishes(height, width)
-copy_dishes(dish1, dish2)
-print(dish2)
+paint_dish(dish1)
+
+
 create_grid()
-
-
 win.mainloop()
