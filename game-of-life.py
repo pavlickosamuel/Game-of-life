@@ -135,4 +135,4 @@ sterilize_dish(dish2)
 canvas.bind("<Button-1>", add_cell)
 
 win.mainloop()
-# vymysli aby 2 pouyite tlacidla boli vedla seba pouzi button1.pack
+# vymysli aby 2 pouzite tlacidla boli vedla seba pouzi button1.pack
