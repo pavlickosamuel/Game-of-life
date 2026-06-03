@@ -22,7 +22,7 @@ def create_dishes(height, width):
     for line in fr:
         x = 0
         for char in line.strip():
-            if char != "-":
+            if char != "-" or char != ".":
                 dish1[y][x] = 1
             x += 1
         y += 1
@@ -135,4 +135,4 @@ sterilize_dish(dish2)
 canvas.bind("<Button-1>", add_cell)
 
 win.mainloop()
-#suradnice celo ciselne delenie cell size zistim v ktorom cell som klikol potom naspat vygenerujem bunku a potom zmenim hodnotu v dish1 na 1 a prekreslim canvas
+# vymysli aby 2 pouyite tlacidla boli vedla seba pouzi button1.pack
