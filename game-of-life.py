@@ -1,14 +1,10 @@
 import tkinter as tk
+from tkinter import filedialog
 
-fr = open("pulsar.txt", "r")
+fr = open("glider-gun.txt", "r")
 height = int(fr.readline().strip())
 width = int(fr.readline().strip())
 cell_size = 10
-
-win = tk.Tk()
-win.title("Game of Life")
-canvas = tk.Canvas(win, width = width*cell_size, height = height*cell_size, bg = "white")
-canvas.pack()
 
 dish1 = []
 dish2 = []
@@ -63,7 +59,7 @@ def copy_dishes(source, destination):
                 if neighbours == 3:
                     destination[y][x] = 1
 
-def create_grid():
+def create_grid(width, height):
     for i in range(0, width*cell_size, cell_size):
         canvas.create_line(i, 0, i, height*cell_size, fill="lightgray")
     for i in range(0, height*cell_size, cell_size):
@@ -73,9 +69,9 @@ def paint_dish(dish):
     for y in range(height):
         for x in range(width):
             if dish[y][x] == 1:
-                canvas.create_rectangle(x*cell_size, y*cell_size, (x+1)*cell_size, (y+1)*cell_size, fill="wheat4")
+                canvas.create_rectangle(x*cell_size, y*cell_size, (x+1)*cell_size, (y+1)*cell_size, fill="wheat4", outline="")
             else:
-                canvas.create_rectangle(x*cell_size, y*cell_size, (x+1)*cell_size, (y+1)*cell_size, fill="white")
+                canvas.create_rectangle(x*cell_size, y*cell_size, (x+1)*cell_size, (y+1)*cell_size, fill="white", outline="")
 
 def sterilize_dish(dish):
     for y in range(height):
@@ -83,25 +79,60 @@ def sterilize_dish(dish):
             dish[y][x] = 0
 
 def life():
-    global generation
+    global generation, width, height
     canvas.delete("all")
-    create_grid()
 
     if generation % 2 == 1:
         sterilize_dish(dish2)
         copy_dishes(dish1, dish2)
         paint_dish(dish2)
-        
     else:
         sterilize_dish(dish1)
         copy_dishes(dish2, dish1)
         paint_dish(dish1)
 
+    create_grid(width, height)
     generation += 1
     canvas.after(100, life)
 
+def open_file():
+    global fr, width, height
+
+    filepath = filedialog.askopenfilename(title = "Select file", initialdir = "./", filetypes = (("Text files", "*.txt"), ("All files", "*.*")))
+
+    print (filepath)
+    fr = open(filepath, "r")
+
+    height = int(fr.readline().strip())
+    width = int(fr.readline().strip())
+
+    create_dishes(height, width)
+    paint_dish(dish1)
+    create_grid(width, height)
+    life()
+
+def add_cell(event):
+    global dish1
+    x = event.x // cell_size
+    y = event.y // cell_size
+    dish1[y][x] = 1
+    cellx = x * cell_size
+    celly = y * cell_size
+    canvas.create_rectangle(cellx, celly, cellx + cell_size, celly + cell_size, fill="wheat4", outline="")
+    
+win = tk.Tk()
+win.title("Game of Life")
+canvas = tk.Canvas(win, width = width*cell_size, height = height*cell_size, bg = "white")
+canvas.pack()
+button1 = tk.Button(win, text = "Open file", command = open_file)
+button1.pack()
+button2 = tk.Button(win, text = "Start", command = life)
+button2.pack()
+create_grid(width, height)
 create_dishes(height, width)
-paint_dish(dish1)
-life()
+sterilize_dish(dish1)
+sterilize_dish(dish2)
+canvas.bind("<Button-1>", add_cell)
 
 win.mainloop()
+#suradnice celo ciselne delenie cell size zistim v ktorom cell som klikol potom naspat vygenerujem bunku a potom zmenim hodnotu v dish1 na 1 a prekreslim canvas
